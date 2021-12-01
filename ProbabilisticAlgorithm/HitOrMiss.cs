@@ -116,16 +116,54 @@ namespace ProbabilisticAlgorithm
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        public static double SetCount(int x)
+        public static decimal SetCount(int x, int n)
+        {
+            decimal result = 0;
+            for (int i = 0; i < n; i++)
+            {
+                var tmp = InternalSetCount(x);
+                //result += tmp;
+                result = result * i / (i + 1) + tmp / (i + 1);
+            }
+            return result;
+        }
+        /// <summary>
+        /// 并行估算集合元素数量
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static decimal ParallelSetCount(int x, int n)
+        {
+            Int64 result = 0;
+            Parallel.For(0, n,
+                index =>
+                {
+                    var tmp = InternalSetCount(x);
+                    Interlocked.Add(ref result, (Int64)tmp);
+                });
+            return result/n;
+        }
+
+        public static decimal InternalSetCount(int x)
         {
             int[] arr=Enumerable.Range(1, x).ToArray();
-            int k = 0;
+            int k = 1;
             var seed = Guid.NewGuid().GetHashCode();
             var rand = new Random(seed);
             var tmp = new List<int>(arr[rand.Next(0,x)]);
+            int min = x, max = 0;
             while (true)
             {
                 int r = rand.Next(0,x);
+                if(r < min)
+                {
+                    min = r;
+                }
+                if(r > max)
+                {
+                    max = r;
+                }
                 if (tmp.Contains(arr[r]))
                 {
                     break;
@@ -136,7 +174,7 @@ namespace ProbabilisticAlgorithm
                     k++;
                 }
             }
-            return (2 * k * k / Math.PI);
+            return ((decimal)(2 * k * k / Math.PI));
 
         }
     }

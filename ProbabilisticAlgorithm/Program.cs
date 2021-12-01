@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace ProbabilisticAlgorithm // Note: actual namespace depends on the project name.
@@ -10,7 +11,7 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
 
         public static void Main(string[] args)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 1; i++)
             {
                 UseSetCount();
             }
@@ -59,13 +60,32 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
 
         static void UseSetCount()
         {
-            var N = new int[] { 100, 1000000, 100000000};
-            for(int i = 0;i < N.Length; i++)
+            var N = new int[] { 10, 100, 1000, 10000, 100000, 1000000, 10000000};
+            int repeat = 50000;
+
+            //Stopwatch sw = new Stopwatch();
+            //sw.Start();
+            //for(int i = 0;i < N.Length; i++)
+            //{
+            //    var result = Math.Round(HitOrMiss.SetCount(N[i], repeat), 5);
+            //    var lossRate = Math.Abs(1 - result / N[i]) * 100;
+            //    Console.WriteLine($" n = {N[i]}, result = {result}, loss = {Math.Round(lossRate,2,MidpointRounding.AwayFromZero)}%");
+            //}
+            //sw.Stop();
+            //TimeSpan ts1 = sw.Elapsed;
+            //Console.WriteLine($"compute spent {ts1.TotalSeconds}s.");
+
+            //sw.Restart();
+            for (int i = 0;i < N.Length; i++)
             {
-                double result=HitOrMiss.SetCount(N[i]);
-                double lossRate=Math.Abs(1-result/N[i])*100;
+                var result = HitOrMiss.ParallelSetCount(N[i], repeat);
+                var lossRate = Math.Abs(1 - result / N[i]) * 100;
                 Console.WriteLine($" n = {N[i]}, result = {result}, loss = {Math.Round(lossRate,2,MidpointRounding.AwayFromZero)}%");
             }
+            //sw.Stop();
+            //TimeSpan ts2 = sw.Elapsed;
+            //Console.WriteLine($"parallel compute spent {ts2.TotalSeconds}s.");
+
         }
     }
 }

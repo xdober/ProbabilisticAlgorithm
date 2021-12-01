@@ -12,7 +12,7 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
         {
             for (int i = 0; i < 2; i++)
             {
-                UseMCCalculus();
+                UseSetCount();
             }
             
 
@@ -20,21 +20,21 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
 
         static void UseDarts()
         {
-            double pi1 = ComputePi.Darts(N1);
+            double pi1 = HitOrMiss.Darts(N1);
             Console.WriteLine($"N={N1}, Pi={pi1}");
-            double pi2 = ComputePi.Darts(N2);
+            double pi2 = HitOrMiss.Darts(N2);
             Console.WriteLine($"N={N2}, Pi={pi2}");
-            double pi3 = ComputePi.Darts(N3);
+            double pi3 = HitOrMiss.Darts(N3);
             Console.WriteLine($"N={N3}, Pi={pi3}");
         }
-
+         
         static void UseDarts2()
         {
-            double pi1 = ComputePi.Darts2(N1);
+            double pi1 = HitOrMiss.Darts2(N1);
             Console.WriteLine($"N={N1}, Pi={pi1}");
-            double pi2 = ComputePi.Darts2(N2);
+            double pi2 = HitOrMiss.Darts2(N2);
             Console.WriteLine($"N={N2}, Pi={pi2}");
-            double pi3 = ComputePi.Darts2(N3);
+            double pi3 = HitOrMiss.Darts2(N3);
             Console.WriteLine($"N={N3}, Pi={pi3}");
         }
 
@@ -43,7 +43,28 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
             var N = new int[] { 1000, 1000000, 100000000, 1000000000 };
             for(int i = 0; i < N.Length; i++)
             {
-                Console.WriteLine($" N = {N[i]}, Pi = {ComputePi.MCCalculus(N[i])}");
+                Console.WriteLine($" N = {N[i]}, Pi = {HitOrMiss.MCCalculus(N[i])}");
+            }
+        }
+
+
+        static void UseCalculusF()
+        {
+            var N = new int[] { 1000, 1000000, 100000000, 1000000000 };
+            for(int i = 0; i < N.Length; i++)
+            {
+                Console.WriteLine($" N = {N[i]}, result = {HitOrMiss.CalculusF(0,3*Math.PI,-1,1,N[i],Math.Sin)}");
+            }
+        }
+
+        static void UseSetCount()
+        {
+            var N = new int[] { 100, 1000000, 100000000};
+            for(int i = 0;i < N.Length; i++)
+            {
+                double result=HitOrMiss.SetCount(N[i]);
+                double lossRate=Math.Abs(1-result/N[i])*100;
+                Console.WriteLine($" n = {N[i]}, result = {result}, loss = {Math.Round(lossRate,2,MidpointRounding.AwayFromZero)}%");
             }
         }
     }

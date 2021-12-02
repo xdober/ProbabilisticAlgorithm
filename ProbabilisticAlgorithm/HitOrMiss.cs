@@ -133,7 +133,7 @@ namespace ProbabilisticAlgorithm
         /// <param name="x"></param>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static decimal ParallelSetCount(int x, int n)
+        public static double ParallelSetCount(int x, int n)
         {
             Int64 result = 0;
             Parallel.For(0, n,
@@ -142,7 +142,7 @@ namespace ProbabilisticAlgorithm
                     var tmp = InternalSetCount(x);
                     Interlocked.Add(ref result, (Int64)tmp);
                 });
-            return result/n;
+            return 1.0*result/n;
         }
 
         public static decimal InternalSetCount(int x)

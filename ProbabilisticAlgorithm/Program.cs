@@ -13,7 +13,7 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
         {
             for (int i = 0; i < 1; i++)
             {
-                UseSetCount();
+                UseSearchOrderList();
             }
             
 
@@ -86,6 +86,15 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
             //TimeSpan ts2 = sw.Elapsed;
             //Console.WriteLine($"parallel compute spent {ts2.TotalSeconds}s.");
 
+        }
+        static void UseSearchOrderList()
+        {
+            var N = new int[] { 10000/*000, 100000, 100000000 */};
+            int repeat = 1000;
+            for(int i = 0; i < N.Length; i++)
+            {
+                SearchOrderList.Search(N[i], repeat);
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
         {
             for (int i = 0; i < 1; i++)
             {
-                UseSearchOrderList();
+                UseQueenSearch();
             }
             
 
@@ -95,6 +95,26 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
             {
                 SearchOrderList.Search(N[i], repeat);
             }
+        }
+        static void UseQueenSearch()
+        {
+            var N = Enumerable.Range(12, 9).ToArray();
+            int repeat = 5000;
+            var sw = Stopwatch.StartNew();
+
+            for (int i = 0; i < N.Length; i++)
+            {
+                StepVegas.SearchQueens1(N[i], repeat);
+            }
+            sw.Stop();
+            Console.WriteLine($"spent {sw.Elapsed.TotalSeconds}s");
+            sw.Restart();
+            for (int i = 0; i < N.Length; i++)
+            {
+                StepVegas.SearchQueens(N[i], repeat);
+            }
+            sw.Stop();
+            Console.WriteLine($"spent {sw.Elapsed.TotalSeconds}s");
         }
     }
 }

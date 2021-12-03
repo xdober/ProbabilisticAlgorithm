@@ -69,13 +69,13 @@ namespace ProbabilisticAlgorithm
             //Console.WriteLine($" find {x} at pos {result} of {n}, D(x) spent {sw.Elapsed.TotalMilliseconds}");
         }
     }
-
+          
     public class SearchList
     {
         private int[] val;
         private int[] ptr;
         private int[] revptr;
-        private int[] rank;
+        private int[] rank; 
         private int head;
         private int len;
         public Random rand;

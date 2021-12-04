@@ -13,7 +13,7 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
         {
             for (int i = 0; i < 1; i++)
             {
-                UseQueenSearch();
+                UsePrimes();
             }
             
 
@@ -116,5 +116,34 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
             sw.Stop();
             Console.WriteLine($"spent {sw.Elapsed.TotalSeconds}s");
         }
+
+        static void UsePrimes()
+        {
+            int repeat = 10000;
+            int incorrecti = 0;
+            int incorrectcount = 0;
+            Parallel.For(0, repeat, i =>
+            {
+                var ret = Primes.ComputePrimes();
+                if (ret.Count() != 0)
+                {
+                    Interlocked.Increment(ref incorrecti);
+                    Interlocked.Add(ref incorrectcount, ret.Count());
+                }
+            });
+            //for(int i = 0;i<repeat; i++)
+            //{
+            //    //Console.Write($" i = {i},");
+            //    var ret = Primes.ComputePrimes();
+            //    if (ret.Count() != 0)
+            //    {
+            //        incorrecti++;
+            //        incorrectcount += ret.Count();
+            //    }
+            //}
+            Console.WriteLine($" repeat {repeat}, total incorrect {incorrecti} times, {incorrectcount} numbers.");
+            
+        }
+
     }
 }

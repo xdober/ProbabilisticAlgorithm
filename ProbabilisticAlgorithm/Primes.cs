@@ -62,7 +62,7 @@ namespace ProbabilisticAlgorithm
             sw.Start();
             for(int i = 5; i < 10001; i += 2)
             {
-                if (RepeatMillRab(i, /*(int)Math.Log10(i)*/100))
+                if (RepeatMillRab(i, /*(int)Math.Log10(i)*/10))
                 {
                     maybeOrNot[i] = true;
                 }

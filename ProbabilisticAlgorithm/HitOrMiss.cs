@@ -8,6 +8,7 @@ namespace ProbabilisticAlgorithm
 {
      static class HitOrMiss
     {
+        private static readonly object countLock = new object();
         public static double Darts(int n)
         {
             int k = 0;
@@ -133,16 +134,23 @@ namespace ProbabilisticAlgorithm
         /// <param name="x"></param>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static double ParallelSetCount(int x, int n)
+        public static decimal ParallelSetCount(int x, int n)
         {
             Int64 result = 0;
+            double count = 0;
+            decimal cnt = 0;
             Parallel.For(0, n,
                 index =>
                 {
                     var tmp = InternalSetCount(x);
-                    Interlocked.Add(ref result, (Int64)tmp);
+                    //Interlocked.Add(ref result, (Int64)tmp);
+                    lock(countLock){
+                        cnt += tmp;
+                    }
+                    
                 });
-            return 1.0*result/n;
+            return cnt / n;
+            //return 1.0*result/n;
         }
 
         public static decimal InternalSetCount(int x)

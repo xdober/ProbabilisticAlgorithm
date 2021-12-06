@@ -92,17 +92,22 @@ namespace ProbabilisticAlgorithm
                     if(!col[i] && !diag45[n+i-row] && !diag135[i + row])
                     {
                         open++;
-                        canSelect.Add(i);
+                        if(rand.Next(0,open) == 0)
+                        {
+                            selected = i;
+                        }
+                        //open++;
+                        //canSelect.Add(i);
                     }
                 }
                 if(open == 0)
                 {
                     return false;
                 }
-                else
+                /*else
                 {
                     selected = canSelect[rand.Next(0,open)];
-                }
+                }*/
                 try_count++;
                 tries[row] = selected;
                 col[selected] = true;

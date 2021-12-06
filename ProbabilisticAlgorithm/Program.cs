@@ -13,7 +13,7 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
         {
             for (int i = 0; i < 1; i++)
             {
-                UsePrimes();
+                UseQueenSearch();
             }
             
 
@@ -80,7 +80,7 @@ namespace ProbabilisticAlgorithm // Note: actual namespace depends on the projec
             {
                 var result = HitOrMiss.ParallelSetCount(N[i], repeat);
                 var lossRate = Math.Abs(1 - result / N[i]) * 100;
-                Console.WriteLine($" n = {N[i]}, result = {result}, loss = {Math.Round(lossRate,2,MidpointRounding.AwayFromZero)}%");
+                Console.WriteLine($" n = {N[i]}, result = {result:.##}, loss = {Math.Round(lossRate,2,MidpointRounding.AwayFromZero)}%");
             }
             //sw.Stop();
             //TimeSpan ts2 = sw.Elapsed;
